@@ -1,2 +1,7 @@
-# algoritmos-em-grafos
-Disciplina de Algoritmos em Grafos 2024.1
+### Utilizar a venv:
+
+no cmd, rodar os comandos em ordem:
+python -m venv venv
+\venv\Scripts\activate
+
+em seguida instalar as dependencias necessárias com o pip
