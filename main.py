@@ -1,7 +1,7 @@
 from graph_lib import Grafo
 
-grafo = Grafo.from_file('input.txt', representation='list')
-grafo_desconexo = Grafo.from_file('input_desconexo.txt', representation='matrix')
+grafo = Grafo.from_file('txts/input.txt', representation='list')
+grafo_desconexo = Grafo.from_file('txts/input_desconexo.txt', representation='matrix')
 
 parent, level = grafo.bfs(0)  # Busca em largura a partir do vértice 0
 
@@ -9,7 +9,7 @@ componentes = grafo.achar_conexos()
 
 grafo_desconexo.visualizar_componentes_conexos('images/grafo_desconexo_componentes_visualizacao.png')
 
-grafo.to_file('output.txt')
+grafo.to_file('txts/output.txt')
 grafo.cria_img_grafo('images/grafo_visualizacao.png')
 #grafo_desconexo.to_file('output_desconexo.txt') # erro
 

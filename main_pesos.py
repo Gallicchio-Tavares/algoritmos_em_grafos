@@ -1,6 +1,6 @@
 from graph_lib import GrafoPeso
 #TODO - Verificar caminho mínimo
-grafo_peso = GrafoPeso.from_file('input_com_pesos.txt')
+grafo_peso = GrafoPeso.from_file('txts/input_com_pesos.txt')
 
 # Encontra menor caminho em grafo ponderado
 distancia, caminho = grafo_peso.menor_caminho(0, 4)  # Exemplo: caminho do vértice 0 ao vértice 4
