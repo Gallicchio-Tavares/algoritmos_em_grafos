@@ -1,24 +1,24 @@
-def achar_conexos(graph):
-    num_vertices = len(graph)
+def achar_conexos(grafo):
+    num_vertices = len(grafo)
     visited = [False] * num_vertices
-    components = []
+    componentes = []
     
-    def dfs_component(vertex, component):
-        visited[vertex] = True
-        component.append(vertex)
+    def dfs_component(vertice, componente):
+        visited[vertice] = True
+        componente.append(vertice)
         
-        neighbors = range(num_vertices) if isinstance(graph, list) else graph[vertex]
-        for neighbor in neighbors:
-            if isinstance(graph, list) and neighbor not in graph[vertex]:
+        vizinhos = range(num_vertices) if isinstance(grafo, list) else grafo[vertice]
+        for vizinho in vizinhos:
+            if isinstance(grafo, list) and vizinho not in grafo[vertice]:
                 continue
-            if not visited[neighbor]:
-                dfs_component(neighbor, component)
+            if not visited[vizinho]:
+                dfs_component(vizinho, componente)
     
-    for vertex in range(num_vertices):
-        if not visited[vertex]:
-            component = []
-            dfs_component(vertex, component)
-            components.append(component)
+    for vertice in range(num_vertices):
+        if not visited[vertice]:
+            componente = []
+            dfs_component(vertice, componente)
+            componentes.append(componente)
     
-    components.sort(key=len, reverse=True)
-    return components
+    componentes.sort(key=len, reverse=True)
+    return componentes

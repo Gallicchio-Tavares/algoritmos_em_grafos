@@ -1,3 +1,4 @@
+import random
 from .representacao import criar_lista_de_adjacencia, criar_matriz_de_adjacencia
 from .busca import bfs, dfs
 from .componentes import achar_conexos
@@ -7,7 +8,7 @@ from .grafo_com_pesos import GrafoPeso
 import networkx as nx
 import matplotlib.pyplot as plt
 
-class Graph:
+class Grafo:
     def __init__(self, num_vertices, representation="list"):
         self.num_vertices = num_vertices
         self.arestas = 0
@@ -71,4 +72,51 @@ class Graph:
         if isinstance(self, GrafoPeso):
             return self.menor_caminho(vertice_ini, target_vertex)  # usa Dijkstra
         else:
-            return self.bfs(vertice_ini, target_vertex)  # usa BFS
+            return self.bfs_menor_caminho(vertice_ini, target_vertex)  # usa BFS
+    
+    def bfs_menor_caminho(self, vertice_ini, vertice_alvo=None):
+    # Usa o BFS para calcular o menor caminho (grafo não ponderado)
+        pai, _ = bfs(self.grafo, vertice_ini)
+        
+        if vertice_alvo is not None:
+            caminho = []
+            atual = vertice_alvo
+            while atual != -1:
+                caminho.append(atual)
+                atual = pai[atual]
+            caminho.reverse()
+            return caminho
+        else:
+            return pai
+        
+    def visualizar_componentes_conexos(self, filename="grafo_componentes.png"):
+        componentes = self.achar_conexos()  # Obtém os componentes conexos
+        G = nx.Graph()
+
+        # Adiciona as arestas ao grafo NetworkX
+        if isinstance(self.grafo, list):
+            for i, vizinhos in enumerate(self.grafo):
+                for vizinho in vizinhos:
+                    if i < vizinho:  # Evitar duplicação de arestas
+                        G.add_edge(i + 1, vizinho + 1)
+        else:
+            for i in range(self.num_vertices):
+                for j in range(i + 1, self.num_vertices):
+                    if self.grafo[i][j] == 1:
+                        G.add_edge(i + 1, j + 1)
+
+        # Gerar cores diferentes para cada componente
+        cores_componentes = {}
+        for idx, componente in enumerate(componentes):
+            cor = "#" + ''.join([random.choice('0123456789ABCDEF') for _ in range(6)])
+            for vertice in componente:
+                cores_componentes[vertice + 1] = cor  # Adiciona +1 para ajustar o índice ao `networkx`
+
+        # Desenhar o grafo com cores para os componentes
+        pos = nx.spring_layout(G)
+        nx.draw(G, pos, with_labels=True, node_color=[cores_componentes[node] for node in G.nodes()],
+                edge_color='gray', node_size=500, font_size=10)
+
+        # Salvar a imagem
+        plt.savefig(filename)
+        plt.close()

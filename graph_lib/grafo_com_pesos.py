@@ -1,6 +1,9 @@
 from .representacao import criar_lista_de_adjacencia_peso, criar_matriz_de_adjacencia_peso
 from .caminho_minimo import dijkstra, get_menor_caminho
 
+import networkx as nx
+import matplotlib.pyplot as plt
+
 class GrafoPeso:
     def __init__(self, num_vertices, representation="list"):
         self.num_vertices = num_vertices
