@@ -1,4 +1,4 @@
-def find_connected_components(graph):
+def achar_conexos(graph):
     num_vertices = len(graph)
     visited = [False] * num_vertices
     components = []

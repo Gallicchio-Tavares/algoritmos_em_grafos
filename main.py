@@ -5,9 +5,9 @@ grafo = Graph.from_file('input.txt', representation='list')
 
 parent, level = grafo.bfs(0) # busca em largura a partir do vértice 0
 
-componentes = grafo.find_connected_components() # componentes conexos
+componentes = grafo.achar_conexos() # componentes conexos
 
 grafo.to_file('output.txt')
-grafo.draw_graph('images/grafo_visualizacao.png')
+grafo.cria_img_grafo('images/grafo_visualizacao.png')
 #print(parent)
 #print(componentes)
