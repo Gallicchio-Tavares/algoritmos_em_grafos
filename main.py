@@ -10,34 +10,12 @@ componentes = grafo.achar_conexos()
 grafo_desconexo.visualizar_componentes_conexos('images/grafo_desconexo_componentes_visualizacao.png')
 
 grafo.to_file('txts/output.txt')
-grafo.cria_img_grafo('images/grafo_visualizacao.png')
-#grafo_desconexo.to_file('output_desconexo.txt') # erro
+grafo.cria_img_grafo('images/grafo.png')
 
-"""
-Visualizar a Busca por Largura:
-"""
-print("Nível dos vértices a partir do vértice 0:")
-for v in range(len(level)):
-    print(f"Vértice número {v+1}: Nível {level[v]}")
 
-print("\nÁrvore de busca (Pai de cada vértice):")
-for v in range(len(parent)):
-    if parent[v] != -1:  # exclui o vértice inicial e vértices inalcançáveis
-        print(f"Vértice número {v+1}: Pai {parent[v]}")
-    else:
-        print(f"Vértice número {v+1}: Sem pai (raiz ou inalcançável)")
+vertice_ini = 0  # Exemplo: vértice inicial 0
+vertice_alvo = 3  # Exemplo: vértice alvo 3
 
-def reconstruir_caminho(parent, vertice_alvo):
-    caminho = []
-    atual = vertice_alvo
-    while atual != -1:  # -1 indica que chegamos à raiz ou que não há caminho
-        caminho.append(atual)
-        atual = parent[atual]
-    caminho.reverse()
-    return caminho
+caminho = grafo.encontra_menor_caminho(vertice_ini, vertice_alvo)
+print(f"Menor caminho do vértice {vertice_ini} ao vértice {vertice_alvo}: {caminho}")
 
-vertice_alvo = 2
-caminho = reconstruir_caminho(parent, vertice_alvo)
-print(f"\nCaminho do vértice 0 até o vértice número{vertice_alvo+1}: {caminho}")
-
-#TODO - Verificar caminho mínimo

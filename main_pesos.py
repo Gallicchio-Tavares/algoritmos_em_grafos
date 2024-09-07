@@ -1,5 +1,5 @@
 from graph_lib import GrafoPeso
-#TODO - Verificar caminho mínimo
+
 grafo_peso = GrafoPeso.from_file('txts/input_com_pesos.txt')
 
 # Encontra menor caminho em grafo ponderado
