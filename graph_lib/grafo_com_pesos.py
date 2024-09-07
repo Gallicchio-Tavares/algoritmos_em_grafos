@@ -1,5 +1,6 @@
 from .representacao import criar_lista_de_adjacencia_peso, criar_matriz_de_adjacencia_peso
 from .caminho_minimo import dijkstra, get_menor_caminho
+from .io import escreve_grafo_com_peso
 
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -34,10 +35,7 @@ class GrafoPeso:
         return grafo
     
     def to_file(self, filename):
-        with open(filename, 'w') as f:
-            f.write(f"# n = {self.num_vertices}\n")
-            f.write(f"# m = {self.arestas}\n")
-            # Implementação similar para a saída com pesos
+        escreve_grafo_com_peso(self.num_vertices, self.arestas, self.grafo, filename)
 
     def menor_caminho(self, vertice_ini, vertice_alvo=None):
         # verificacao pra poder usar o alg de dijkstra
