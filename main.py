@@ -16,6 +16,6 @@ grafo.cria_img_grafo('images/grafo.png')
 vertice_ini = 0  # Exemplo: vértice inicial 0
 vertice_alvo = 3  # Exemplo: vértice alvo 3
 
-caminho = grafo.encontra_menor_caminho(vertice_ini, vertice_alvo)
+caminho = grafo.menor_caminho(vertice_ini, vertice_alvo)
 print(f"Menor caminho do vértice {vertice_ini} ao vértice {vertice_alvo}: {caminho}")
 

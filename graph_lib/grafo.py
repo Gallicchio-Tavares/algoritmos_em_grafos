@@ -3,7 +3,7 @@ from .representacao import criar_lista_de_adjacencia, criar_matriz_de_adjacencia
 from .busca import bfs, dfs
 from .componentes import achar_conexos
 from .io import le_grafo, escreve_grafo
-from .grafo_com_pesos import GrafoPeso
+from .caminho_minimo import get_menor_caminho
 
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -36,6 +36,19 @@ class Grafo:
     def achar_conexos(self):
         return achar_conexos(self.grafo)
     
+    def bfs_menor_caminho(self, vertice_ini, vertice_alvo=None):
+        # Usa o BFS para calcular o menor caminho (grafo não ponderado)
+        pai, _ = bfs(self.grafo, vertice_ini)
+        
+        if vertice_alvo is not None:
+            # Usa a função get_menor_caminho para reconstruir o caminho
+            return get_menor_caminho(pai, vertice_alvo)
+        else:
+            return pai  # Se nenhum alvo for fornecido, retorna a árvore de pais
+    
+    def menor_caminho(self, vertice_ini, target_vertex=None):
+        return self.bfs_menor_caminho(vertice_ini, target_vertex)
+    
     @classmethod
     def from_file(cls, filename, representation="list"):
         num_vertices, arestas = le_grafo(filename)
@@ -67,27 +80,6 @@ class Grafo:
         nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray', node_size=500, font_size=10)
         plt.savefig(filename)
         plt.close()
-        
-    def encontra_menor_caminho(self, vertice_ini, target_vertex=None):
-        if isinstance(self, GrafoPeso):
-            return self.menor_caminho(vertice_ini, target_vertex)  # usa Dijkstra
-        else:
-            return self.bfs_menor_caminho(vertice_ini, target_vertex)  # usa BFS
-    
-    def bfs_menor_caminho(self, vertice_ini, vertice_alvo=None):
-    # Usa o BFS para calcular o menor caminho (grafo não ponderado)
-        pai, _ = bfs(self.grafo, vertice_ini)
-        
-        if vertice_alvo is not None:
-            caminho = []
-            atual = vertice_alvo
-            while atual != -1:
-                caminho.append(atual)
-                atual = pai[atual]
-            caminho.reverse()
-            return caminho
-        else:
-            return pai
         
     def visualizar_componentes_conexos(self, filename="grafo_componentes.png"):
         componentes = self.achar_conexos()  # Obtém os componentes conexos
