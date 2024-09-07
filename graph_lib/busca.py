@@ -13,10 +13,14 @@ def bfs(grafo, vertice_ini):
     while queue:
         vertice = queue.popleft()
         
-        vizinhos = range(num_vertices) if isinstance(grafo, list) else grafo[vertice]
+        # Se o grafo for uma lista de adjacência (não ponderado)
+        if isinstance(grafo[vertice], list) and isinstance(grafo[vertice][0], int):
+            vizinhos = grafo[vertice]
+        # Se o grafo for uma lista ponderada (com pares (vizinho, peso))
+        else:
+            vizinhos = [vizinho for vizinho, _ in grafo[vertice]]
+
         for vizinho in vizinhos:
-            if isinstance(grafo, list) and vizinho not in grafo[vertice]:
-                continue
             if not visitado[vizinho]:
                 visitado[vizinho] = True
                 pai[vizinho] = vertice
@@ -24,6 +28,7 @@ def bfs(grafo, vertice_ini):
                 queue.append(vizinho)
     
     return pai, nivel
+
 
 def dfs(grafo, vertice_ini):
     num_vertices = len(grafo)
@@ -35,13 +40,18 @@ def dfs(grafo, vertice_ini):
         visitado[vertice] = True
         nivel[vertice] = depth
         
-        vizinhos = range(num_vertices) if isinstance(grafo, list) else grafo[vertice]
+        # Se o grafo for uma lista de adjacência (não ponderado)
+        if isinstance(grafo[vertice], list) and isinstance(grafo[vertice][0], int):
+            vizinhos = grafo[vertice]
+        # Se o grafo for uma lista ponderada (com pares (vizinho, peso))
+        else:
+            vizinhos = [vizinho for vizinho, _ in grafo[vertice]]
+
         for vizinho in vizinhos:
-            if isinstance(grafo, list) and vizinho not in grafo[vertice]:
-                continue
             if not visitado[vizinho]:
                 pai[vizinho] = vertice
                 dfs_visit(vizinho, depth + 1)
     
     dfs_visit(vertice_ini, 0)
     return pai, nivel
+
