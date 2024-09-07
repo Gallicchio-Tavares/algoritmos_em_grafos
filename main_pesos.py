@@ -7,4 +7,4 @@ distancia, caminho = grafo_peso.menor_caminho(0, 4)  # Exemplo: caminho do vért
 print(f"Distância: {distancia}, Caminho: {caminho}")
 
 # Gera imagem do grafo ponderado
-grafo_peso.cria_img_grafo_peso('images/grafo_peso_visualizacao.png')
+grafo_peso.cria_img_grafo_peso('images/grafo_peso.png')
