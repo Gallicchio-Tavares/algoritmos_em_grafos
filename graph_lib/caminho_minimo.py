@@ -5,7 +5,7 @@ def dijkstra(grafo, vertice_ini): #alg de dijkstra usando heap
     distancias = [float('inf')] * num_vertices
     distancias[vertice_ini] = 0
     pai = [-1] * num_vertices
-    pq = [(0, vertice_ini)]  # Priority queue (min-heap)
+    pq = [(0, vertice_ini)]  # (min-heap)
     
     while pq:
         atual_distancia, vertice = heapq.heappop(pq) 

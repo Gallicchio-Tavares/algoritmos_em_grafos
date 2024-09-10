@@ -72,39 +72,10 @@ class GrafoPeso:
     def cria_img_grafo_peso(self, filename="grafo_peso.png"):
         G = nx.Graph()
 
-        # Adiciona arestas e pesos ao grafo
         if isinstance(self.grafo, list):
             for i, vizinhos in enumerate(self.grafo):
                 for vizinho, peso in vizinhos:
-                    if i < vizinho:  # Evitar duplicação de arestas
-                        G.add_edge(i + 1, vizinho + 1, weight=peso)
-        else:
-            for i in range(self.num_vertices):
-                for j in range(i + 1, self.num_vertices):
-                    if self.grafo[i][j] != float('inf'):  # Se existe uma aresta
-                        G.add_edge(i + 1, j + 1, weight=self.grafo[i][j])
-
-        # Desenhar o grafo
-        pos = nx.spring_layout(G)  # Layout de nós
-        nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray', node_size=500, font_size=10)
-
-        # Desenhar os pesos das arestas
-        edge_labels = nx.get_edge_attributes(G, 'weight')
-        nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
-
-        # Salvar a imagem
-        plt.savefig(filename)
-        plt.close()
-        
-    def visualizar_componentes_conexos(self, filename="grafo_componentes_peso.png"):
-        componentes = self.achar_conexos()
-        G = nx.Graph()
-
-        # Adiciona as arestas ao grafo NetworkX
-        if isinstance(self.grafo, list):
-            for i, vizinhos in enumerate(self.grafo):
-                for vizinho, peso in vizinhos:
-                    if i < vizinho:  # Evitar duplicação de arestas
+                    if i < vizinho:
                         G.add_edge(i + 1, vizinho + 1, weight=peso)
         else:
             for i in range(self.num_vertices):
@@ -112,19 +83,38 @@ class GrafoPeso:
                     if self.grafo[i][j] != float('inf'):
                         G.add_edge(i + 1, j + 1, weight=self.grafo[i][j])
 
-        # Gerar cores diferentes para cada componente
+        pos = nx.spring_layout(G)
+        nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray', node_size=500, font_size=10)
+        edge_labels = nx.get_edge_attributes(G, 'weight')
+        nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
+        plt.savefig(filename)
+        plt.close()
+        
+    def visualizar_componentes_conexos(self, filename="grafo_componentes_peso.png"):
+        componentes = self.achar_conexos()
+        G = nx.Graph()
+
+        if isinstance(self.grafo, list):
+            for i, vizinhos in enumerate(self.grafo):
+                for vizinho, peso in vizinhos:
+                    if i < vizinho:
+                        G.add_edge(i + 1, vizinho + 1, weight=peso)
+        else:
+            for i in range(self.num_vertices):
+                for j in range(i + 1, self.num_vertices):
+                    if self.grafo[i][j] != float('inf'):
+                        G.add_edge(i + 1, j + 1, weight=self.grafo[i][j])
+
         cores_componentes = {}
         for idx, componente in enumerate(componentes):
             cor = "#" + ''.join([random.choice('0123456789ABCDEF') for _ in range(6)])
             for vertice in componente:
                 cores_componentes[vertice + 1] = cor
 
-        # Desenhar o grafo com cores para os componentes
         pos = nx.spring_layout(G)
         nx.draw(G, pos, with_labels=True, node_color=[cores_componentes[node] for node in G.nodes()],
                 edge_color='gray', node_size=500, font_size=10)
 
-        # Desenhar os pesos das arestas
         edge_labels = nx.get_edge_attributes(G, 'weight')
         nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
         plt.savefig(filename)

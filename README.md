@@ -20,8 +20,13 @@
    pip install -r requirements.txt
    ```
 
-4. Execute `python main.py` para executar o código:
+4. Execute os arquivos de teste para executar o código. Exemplo:
 
    ``` bash
    python main.py
+   python testa_bfs_dfs_pesos.py
    ```
+
+## Informação
+
+As imagens e arquivos de texto devem ser salvas respectivamente na pasta `images` e `txts`

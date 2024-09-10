@@ -37,12 +37,10 @@ def achar_conexos_peso(grafo):
                 if not visited[vizinho]:
                     dfs_component(vizinho, componente)
         else:
-            # Se o grafo for uma matriz de adjacência ponderada
             for vizinho in range(num_vertices):
                 if grafo[vertice][vizinho] != float('inf') and not visited[vizinho]:
                     dfs_component(vizinho, componente)
     
-    # Iniciar a DFS para encontrar todos os componentes
     for vertice in range(num_vertices):
         if not visited[vertice]:
             componente = []

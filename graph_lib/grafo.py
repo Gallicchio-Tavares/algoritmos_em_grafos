@@ -43,7 +43,7 @@ class Grafo:
             # usa a func get_menor_caminho para reconstruir o caminho
             return get_menor_caminho(pai, vertice_alvo)
         else:
-            return pai  # Se nenhum alvo for fornecido, retorna a árvore de pais
+            return pai
     
     def menor_caminho(self, vertice_ini, target_vertex=None):
         return self._bfs_menor_caminho(vertice_ini, target_vertex)
